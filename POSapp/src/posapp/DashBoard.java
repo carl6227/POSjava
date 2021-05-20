@@ -20,6 +20,9 @@ public class DashBoard extends javax.swing.JFrame {
      */
     public DashBoard() {
         initComponents();
+         Dashboards dash = new Dashboards();
+      jDesktopPane1.removeAll();
+      jDesktopPane1.add(dash).setVisible(true);
     }
 
     /**
@@ -31,32 +34,28 @@ public class DashBoard extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         DashboardBtn = new javax.swing.JLabel();
         menuBtn = new javax.swing.JLabel();
+        jToggleButton2 = new javax.swing.JToggleButton();
+        jToggleButton3 = new javax.swing.JToggleButton();
+        Transactions = new javax.swing.JLabel();
+        jToggleButton4 = new javax.swing.JToggleButton();
+        jLabel2 = new javax.swing.JLabel();
+        DashboardBtn1 = new javax.swing.JLabel();
         jDesktopPane1 = new javax.swing.JDesktopPane();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(null);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(0, 102, 102));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 840, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 57, Short.MAX_VALUE)
-        );
-
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(0, 0, 840, 57);
-
-        jPanel2.setBackground(new java.awt.Color(0, 153, 153));
+        jPanel2.setBackground(new java.awt.Color(0, 102, 102));
+        jPanel2.setPreferredSize(new java.awt.Dimension(221, 740));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         DashboardBtn.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         DashboardBtn.setText("Dashboard");
@@ -65,6 +64,7 @@ public class DashBoard extends javax.swing.JFrame {
                 DashboardBtnMouseClicked(evt);
             }
         });
+        jPanel2.add(DashboardBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, -1, -1));
 
         menuBtn.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         menuBtn.setText("Menu");
@@ -73,46 +73,78 @@ public class DashBoard extends javax.swing.JFrame {
                 menuBtnMouseClicked(evt);
             }
         });
+        jPanel2.add(menuBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, -1, -1));
+        jPanel2.add(jToggleButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 210, 50));
+        jPanel2.add(jToggleButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 210, 50));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(menuBtn)
-                    .addComponent(DashboardBtn))
-                .addContainerGap(54, Short.MAX_VALUE))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addComponent(DashboardBtn)
-                .addGap(18, 18, 18)
-                .addComponent(menuBtn)
-                .addContainerGap(389, Short.MAX_VALUE))
-        );
+        Transactions.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        Transactions.setText("Transactions");
+        Transactions.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TransactionsMouseClicked(evt);
+            }
+        });
+        jPanel2.add(Transactions, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, -1, 30));
+        jPanel2.add(jToggleButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 210, 50));
 
-        getContentPane().add(jPanel2);
-        jPanel2.setBounds(0, 60, 200, 490);
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/posapp/rsz_60a639c68e86d.png"))); // NOI18N
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, 110));
 
-        jDesktopPane1.setBackground(new java.awt.Color(204, 255, 204));
+        DashboardBtn1.setBackground(new java.awt.Color(255, 255, 255));
+        DashboardBtn1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        DashboardBtn1.setForeground(new java.awt.Color(255, 255, 255));
+        DashboardBtn1.setText("ADMIN");
+        DashboardBtn1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                DashboardBtn1MouseClicked(evt);
+            }
+        });
+        jPanel2.add(DashboardBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, -1, -1));
+
+        jPanel3.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, -1, 460));
+
+        jDesktopPane1.setBackground(new java.awt.Color(240, 240, 240));
+        jDesktopPane1.setPreferredSize(new java.awt.Dimension(540, 540));
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
         jDesktopPane1Layout.setHorizontalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 640, Short.MAX_VALUE)
+            .addGap(0, 740, Short.MAX_VALUE)
         );
         jDesktopPane1Layout.setVerticalGroup(
             jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 490, Short.MAX_VALUE)
+            .addGap(0, 460, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jDesktopPane1);
-        jDesktopPane1.setBounds(200, 60, 640, 490);
+        jPanel3.add(jDesktopPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 60, 740, 460));
+
+        jPanel1.setBackground(new java.awt.Color(25, 68, 68));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/posapp/rsz_1rsz_60a646201b470.png"))); // NOI18N
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(907, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+        );
+
+        jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 60));
+
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 980, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -135,6 +167,24 @@ public class DashBoard extends javax.swing.JFrame {
       jDesktopPane1.removeAll();
       jDesktopPane1.add(menu).setVisible(true);
     }//GEN-LAST:event_menuBtnMouseClicked
+
+    private void DashboardBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DashboardBtn1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DashboardBtn1MouseClicked
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+     login lg=new login();
+     lg.setVisible(true);
+     setVisible(false);
+     
+    }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void TransactionsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TransactionsMouseClicked
+       TransactionsFrame tf=new TransactionsFrame();
+       jDesktopPane1.removeAll();
+       jDesktopPane1.add(tf).setVisible(true);
+     
+    }//GEN-LAST:event_TransactionsMouseClicked
 
     /**
      * @param args the command line arguments
@@ -173,9 +223,17 @@ public class DashBoard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel DashboardBtn;
+    private javax.swing.JLabel DashboardBtn1;
+    private javax.swing.JLabel Transactions;
     private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JToggleButton jToggleButton2;
+    private javax.swing.JToggleButton jToggleButton3;
+    private javax.swing.JToggleButton jToggleButton4;
     private javax.swing.JLabel menuBtn;
     // End of variables declaration//GEN-END:variables
 }

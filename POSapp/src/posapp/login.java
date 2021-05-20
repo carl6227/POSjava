@@ -5,7 +5,6 @@
  */
 package posapp;
 
-import com.mysql.cj.xdevapi.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -38,6 +37,7 @@ public class login extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        closeIcon = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         loginField = new javax.swing.JTextField();
         loginBtn = new javax.swing.JButton();
@@ -47,7 +47,8 @@ public class login extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(null);
+        setUndecorated(true);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 102));
         jPanel1.setLayout(null);
@@ -55,26 +56,36 @@ public class login extends javax.swing.JFrame {
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/posapp/rsz_1rsz_60a3c055b18fa.png"))); // NOI18N
         jLabel5.setText("jLabel5");
         jPanel1.add(jLabel5);
-        jLabel5.setBounds(0, 90, 140, 160);
+        jLabel5.setBounds(0, 60, 140, 160);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 29)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 153, 153));
         jLabel4.setText("Point of Sales Software");
         jPanel1.add(jLabel4);
-        jLabel4.setBounds(10, 190, 320, 90);
+        jLabel4.setBounds(10, 160, 320, 90);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(0, 153, 153));
         jLabel6.setText("P.O.S");
         jPanel1.add(jLabel6);
-        jLabel6.setBounds(120, 120, 150, 80);
+        jLabel6.setBounds(130, 90, 150, 80);
 
-        getContentPane().add(jPanel1);
-        jPanel1.setBounds(290, -10, 320, 350);
+        closeIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/posapp/closeIcon.png"))); // NOI18N
+        closeIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                closeIconMouseClicked(evt);
+            }
+        });
+        jPanel1.add(closeIcon);
+        closeIcon.setBounds(280, 0, 40, 40);
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, 320, 340));
 
         jPanel2.setBackground(new java.awt.Color(0, 51, 51));
 
         loginField.setBackground(new java.awt.Color(0, 150, 140));
+        loginField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        loginField.setForeground(new java.awt.Color(255, 255, 255));
         loginField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 loginFieldActionPerformed(evt);
@@ -82,6 +93,8 @@ public class login extends javax.swing.JFrame {
         });
 
         loginBtn.setBackground(new java.awt.Color(0, 150, 140));
+        loginBtn.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        loginBtn.setForeground(new java.awt.Color(255, 255, 255));
         loginBtn.setText("Login");
         loginBtn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -96,15 +109,17 @@ public class login extends javax.swing.JFrame {
 
         jLabel1.setBackground(new java.awt.Color(0, 153, 153));
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 153, 153));
+        jLabel1.setForeground(new java.awt.Color(240, 240, 240));
         jLabel1.setText("Password");
 
-        jLabel2.setBackground(new java.awt.Color(0, 71, 60));
+        jLabel2.setBackground(new java.awt.Color(255, 255, 255));
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 153, 153));
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Username");
 
         passField.setBackground(new java.awt.Color(0, 150, 140));
+        passField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        passField.setForeground(new java.awt.Color(255, 255, 255));
         passField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passFieldActionPerformed(evt);
@@ -153,10 +168,10 @@ public class login extends javax.swing.JFrame {
                 .addComponent(loginBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        getContentPane().add(jPanel2);
-        jPanel2.setBounds(0, 0, 300, 340);
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 300, 340));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginFieldActionPerformed
@@ -176,14 +191,13 @@ public class login extends javax.swing.JFrame {
        String username= loginField.getText();
         String password= passField.getText();
         try {
-           Class.forName("com.mysql.cj.jdbc.Driver"); //load the driver
+           Class.forName("com.mysql.jdbc.Driver"); //load the driver
            Connection con = DriverManager.getConnection("jdbc:mysql://remotemysql.com/i6jPHFJtKc", "i6jPHFJtKc", "WGD2ufVrPr"); //establishes the connection
            PreparedStatement stmt =con.prepareStatement("SELECT * FROM users WHERE name=? AND password=? "); //get the connection stream(connection port)
            stmt.setString(1,username);
             stmt.setString(2,password);
             ResultSet rs = stmt.executeQuery();
              if (rs.next()) {
-                    JOptionPane.showMessageDialog(null, "Welcome to POS software!");
                     DashBoard db = new DashBoard();
                     db.setVisible(true);
                     setVisible(false);
@@ -203,6 +217,10 @@ public class login extends javax.swing.JFrame {
            
        }       // TODO add your handling code here:
     }//GEN-LAST:event_loginBtnMouseClicked
+
+    private void closeIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeIconMouseClicked
+    System.exit(0);
+    }//GEN-LAST:event_closeIconMouseClicked
 
     /**
      * @param args the command line arguments
@@ -238,6 +256,7 @@ public class login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel closeIcon;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -250,4 +269,8 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JTextField loginField;
     private javax.swing.JPasswordField passField;
     // End of variables declaration//GEN-END:variables
+
+    void setVisble(boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
