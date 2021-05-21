@@ -40,7 +40,7 @@ public class TransactionsFrame extends javax.swing.JInternalFrame {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://remotemysql.com/i6jPHFJtKc", "i6jPHFJtKc", "WGD2ufVrPr"); //establishes the connection
-            PreparedStatement stmt = con.prepareStatement("SELECT * FROM menu");
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM orders");
             ResultSet rs = stmt.executeQuery();
             Class.forName("com.mysql.jdbc.Driver");
          
