@@ -36,12 +36,9 @@ public class DashBoard extends javax.swing.JFrame {
 
         jPanel3 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        DashboardBtn = new javax.swing.JLabel();
-        menuBtn = new javax.swing.JLabel();
-        jToggleButton2 = new javax.swing.JToggleButton();
-        jToggleButton3 = new javax.swing.JToggleButton();
-        Transactions = new javax.swing.JLabel();
-        jToggleButton4 = new javax.swing.JToggleButton();
+        dash = new javax.swing.JToggleButton();
+        menus = new javax.swing.JToggleButton();
+        Transaction = new javax.swing.JToggleButton();
         jLabel2 = new javax.swing.JLabel();
         DashboardBtn1 = new javax.swing.JLabel();
         jDesktopPane1 = new javax.swing.JDesktopPane();
@@ -57,35 +54,32 @@ public class DashBoard extends javax.swing.JFrame {
         jPanel2.setPreferredSize(new java.awt.Dimension(221, 740));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        DashboardBtn.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        DashboardBtn.setText("Dashboard");
-        DashboardBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+        dash.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        dash.setText("Dashboard");
+        dash.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                DashboardBtnMouseClicked(evt);
+                dashMouseClicked(evt);
             }
         });
-        jPanel2.add(DashboardBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, -1, -1));
+        jPanel2.add(dash, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 180, 210, 50));
 
-        menuBtn.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        menuBtn.setText("Menu");
-        menuBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+        menus.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        menus.setText("Menu");
+        menus.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                menuBtnMouseClicked(evt);
+                menusMouseClicked(evt);
             }
         });
-        jPanel2.add(menuBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, -1, -1));
-        jPanel2.add(jToggleButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 170, 210, 50));
-        jPanel2.add(jToggleButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 210, 50));
+        jPanel2.add(menus, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 210, 50));
 
-        Transactions.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        Transactions.setText("Transactions");
-        Transactions.addMouseListener(new java.awt.event.MouseAdapter() {
+        Transaction.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        Transaction.setText("Transactions");
+        Transaction.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TransactionsMouseClicked(evt);
+                TransactionMouseClicked(evt);
             }
         });
-        jPanel2.add(Transactions, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 300, -1, 30));
-        jPanel2.add(jToggleButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 210, 50));
+        jPanel2.add(Transaction, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 210, 50));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/posapp/rsz_60a639c68e86d.png"))); // NOI18N
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, 110));
@@ -149,25 +143,6 @@ public class DashBoard extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void DashboardBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DashboardBtnMouseClicked
-      Dashboards dash = new Dashboards();
-      jDesktopPane1.removeAll();
-      jDesktopPane1.add(dash).setVisible(true);
-    }//GEN-LAST:event_DashboardBtnMouseClicked
-
-    private void menuBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuBtnMouseClicked
-         Menu menu = null;
-        try {
-            menu = new Menu();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DashBoard.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(DashBoard.class.getName()).log(Level.SEVERE, null, ex);
-        }
-      jDesktopPane1.removeAll();
-      jDesktopPane1.add(menu).setVisible(true);
-    }//GEN-LAST:event_menuBtnMouseClicked
-
     private void DashboardBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DashboardBtn1MouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_DashboardBtn1MouseClicked
@@ -179,12 +154,37 @@ public class DashBoard extends javax.swing.JFrame {
      
     }//GEN-LAST:event_jLabel1MouseClicked
 
-    private void TransactionsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TransactionsMouseClicked
-       TransactionsFrame tf=new TransactionsFrame();
+    private void TransactionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TransactionMouseClicked
+        TransactionsFrame tf = null;
+        try {
+            tf = new TransactionsFrame();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DashBoard.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(DashBoard.class.getName()).log(Level.SEVERE, null, ex);
+        }
        jDesktopPane1.removeAll();
        jDesktopPane1.add(tf).setVisible(true);
-     
-    }//GEN-LAST:event_TransactionsMouseClicked
+    }//GEN-LAST:event_TransactionMouseClicked
+
+    private void menusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menusMouseClicked
+        Menu menu = null;
+        try {
+            menu = new Menu();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(DashBoard.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(DashBoard.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      jDesktopPane1.removeAll();
+      jDesktopPane1.add(menu).setVisible(true);
+    }//GEN-LAST:event_menusMouseClicked
+
+    private void dashMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_dashMouseClicked
+       Dashboards dash = new Dashboards();
+      jDesktopPane1.removeAll();
+      jDesktopPane1.add(dash).setVisible(true);
+    }//GEN-LAST:event_dashMouseClicked
 
     /**
      * @param args the command line arguments
@@ -222,18 +222,15 @@ public class DashBoard extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel DashboardBtn;
     private javax.swing.JLabel DashboardBtn1;
-    private javax.swing.JLabel Transactions;
+    private javax.swing.JToggleButton Transaction;
+    private javax.swing.JToggleButton dash;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JToggleButton jToggleButton2;
-    private javax.swing.JToggleButton jToggleButton3;
-    private javax.swing.JToggleButton jToggleButton4;
-    private javax.swing.JLabel menuBtn;
+    private javax.swing.JToggleButton menus;
     // End of variables declaration//GEN-END:variables
 }
