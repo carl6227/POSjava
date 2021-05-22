@@ -5,6 +5,12 @@
  */
 package posapp;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author 2ndyrGroupA
@@ -16,6 +22,38 @@ public class Dashboards extends javax.swing.JInternalFrame {
      */
     public Dashboards() {
         initComponents();
+
+        try {
+            Class.forName("com.mysql.jdbc.Driver"); //load the driver
+            Connection con = DriverManager.getConnection("jdbc:mysql://remotemysql.com/i6jPHFJtKc", "i6jPHFJtKc", "WGD2ufVrPr"); //establishes the connection
+            PreparedStatement stmt = con.prepareStatement("SELECT sum(amount) as totalsale FROM sales"); //get the connection stream(connection port)
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                totalSales.setText(rs.getString("totalsale"));
+            } else {
+                JOptionPane.showMessageDialog(null, "NO sales Yet");
+
+            }
+            PreparedStatement stmt2 = con.prepareStatement("SELECT count(*) as menuCount FROM menu");
+            ResultSet rs2 = stmt2.executeQuery();
+            if (rs2.next()) {
+                totalMenu.setText(rs.getString("menuCount"));
+            } else {
+                JOptionPane.showMessageDialog(null, "NO Menu");
+            }
+            PreparedStatement stmt3 = con.prepareStatement("SELECT count(status) as orderPending FROM orders WHERE status='pending'");
+            ResultSet rs3 = stmt3.executeQuery();
+            if (rs3.next()) {
+                pendingOrders.setText(rs.getString("orderPending"));
+            } else {
+                JOptionPane.showMessageDialog(null, "NO Menu");
+            }
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e);
+
+        }       // TODO add your handling code here:
     }
 
     /**
@@ -31,17 +69,17 @@ public class Dashboards extends javax.swing.JInternalFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
-        jLabel5 = new javax.swing.JLabel();
+        totalSales = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
-        jLabel4 = new javax.swing.JLabel();
+        totalMenu = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jPanel16 = new javax.swing.JPanel();
         jPanel17 = new javax.swing.JPanel();
         jPanel18 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
+        pendingOrders = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jPanel25 = new javax.swing.JPanel();
         jPanel26 = new javax.swing.JPanel();
@@ -79,11 +117,11 @@ public class Dashboards extends javax.swing.JInternalFrame {
         jPanel3.add(jPanel6);
         jPanel6.setBounds(0, 90, 260, 30);
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel5.setText("10,500");
-        jPanel3.add(jLabel5);
-        jLabel5.setBounds(20, 20, 110, 30);
+        totalSales.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        totalSales.setForeground(new java.awt.Color(240, 240, 240));
+        totalSales.setText("10,500");
+        jPanel3.add(totalSales);
+        totalSales.setBounds(20, 20, 110, 30);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(240, 240, 240));
@@ -117,11 +155,11 @@ public class Dashboards extends javax.swing.JInternalFrame {
         jPanel7.add(jPanel9);
         jPanel9.setBounds(0, 90, 260, 30);
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel4.setText("25");
-        jPanel7.add(jLabel4);
-        jLabel4.setBounds(20, 20, 110, 30);
+        totalMenu.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        totalMenu.setForeground(new java.awt.Color(240, 240, 240));
+        totalMenu.setText("25");
+        jPanel7.add(totalMenu);
+        totalMenu.setBounds(20, 20, 110, 30);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(240, 240, 240));
@@ -155,11 +193,11 @@ public class Dashboards extends javax.swing.JInternalFrame {
         jPanel16.add(jPanel18);
         jPanel18.setBounds(0, 90, 260, 30);
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel2.setText("10");
-        jPanel16.add(jLabel2);
-        jLabel2.setBounds(20, 20, 110, 30);
+        pendingOrders.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        pendingOrders.setForeground(new java.awt.Color(240, 240, 240));
+        pendingOrders.setText("10");
+        jPanel16.add(pendingOrders);
+        pendingOrders.setBounds(20, 20, 110, 30);
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(240, 240, 240));
@@ -216,10 +254,7 @@ public class Dashboards extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -236,5 +271,8 @@ public class Dashboards extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JLabel pendingOrders;
+    private javax.swing.JLabel totalMenu;
+    private javax.swing.JLabel totalSales;
     // End of variables declaration//GEN-END:variables
 }

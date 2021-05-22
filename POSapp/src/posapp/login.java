@@ -192,24 +192,22 @@ public class login extends javax.swing.JFrame {
         String password= passField.getText();
         try {
            Class.forName("com.mysql.jdbc.Driver"); //load the driver
-           Connection con = DriverManager.getConnection("jdbc:mysql://remotemysql.com/i6jPHFJtKc", "i6jPHFJtKc", "WGD2ufVrPr"); //establishes the connection
-           PreparedStatement stmt =con.prepareStatement("SELECT * FROM users WHERE name=? AND password=? "); //get the connection stream(connection port)
-           stmt.setString(1,username);
-            stmt.setString(2,password);
-            ResultSet rs = stmt.executeQuery();
-             if (rs.next()) {
-                    DashBoard db = new DashBoard();
-                    db.setVisible(true);
-                    setVisible(false);
-
-                } else {
-                    JOptionPane.showMessageDialog(null, "Invalid username or Password");
-                  
-                }
-           
-           
-       
-           con.close();
+           try (Connection con = DriverManager.getConnection("jdbc:mysql://remotemysql.com/i6jPHFJtKc", "i6jPHFJtKc", "WGD2ufVrPr") //establishes the connection
+           ) {
+               PreparedStatement stmt =con.prepareStatement("SELECT * FROM users WHERE name=? AND password=? "); //get the connection stream(connection port)
+               stmt.setString(1,username);
+               stmt.setString(2,password);
+               ResultSet rs = stmt.executeQuery();
+               if (rs.next()) {
+                   WaiterDashBoard db = new WaiterDashBoard();
+                   db.setVisible(true);
+                   setVisible(false);
+                   
+               } else {
+                   JOptionPane.showMessageDialog(null, "Invalid username or Password");
+                   
+               }
+           } //get the connection stream(connection port)
        } catch (Exception e) {
            System.out.println(e);
            

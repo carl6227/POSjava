@@ -38,7 +38,6 @@ public class DashBoard extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         dash = new javax.swing.JToggleButton();
         menus = new javax.swing.JToggleButton();
-        Transaction = new javax.swing.JToggleButton();
         jLabel2 = new javax.swing.JLabel();
         DashboardBtn1 = new javax.swing.JLabel();
         jDesktopPane1 = new javax.swing.JDesktopPane();
@@ -72,15 +71,6 @@ public class DashBoard extends javax.swing.JFrame {
         });
         jPanel2.add(menus, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 210, 50));
 
-        Transaction.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        Transaction.setText("Transactions");
-        Transaction.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TransactionMouseClicked(evt);
-            }
-        });
-        jPanel2.add(Transaction, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 210, 50));
-
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/posapp/rsz_60a639c68e86d.png"))); // NOI18N
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, 110));
 
@@ -95,7 +85,7 @@ public class DashBoard extends javax.swing.JFrame {
         });
         jPanel2.add(DashboardBtn1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, -1, -1));
 
-        jPanel3.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, -1, 460));
+        jPanel3.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, 460));
 
         jDesktopPane1.setBackground(new java.awt.Color(240, 240, 240));
         jDesktopPane1.setPreferredSize(new java.awt.Dimension(540, 540));
@@ -138,7 +128,7 @@ public class DashBoard extends javax.swing.JFrame {
 
         jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 60));
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 980, -1));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 970, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -153,19 +143,6 @@ public class DashBoard extends javax.swing.JFrame {
      setVisible(false);
      
     }//GEN-LAST:event_jLabel1MouseClicked
-
-    private void TransactionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TransactionMouseClicked
-        TransactionsFrame tf = null;
-        try {
-            tf = new TransactionsFrame();
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(DashBoard.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(DashBoard.class.getName()).log(Level.SEVERE, null, ex);
-        }
-       jDesktopPane1.removeAll();
-       jDesktopPane1.add(tf).setVisible(true);
-    }//GEN-LAST:event_TransactionMouseClicked
 
     private void menusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menusMouseClicked
         Menu menu = null;
@@ -223,7 +200,6 @@ public class DashBoard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel DashboardBtn1;
-    private javax.swing.JToggleButton Transaction;
     private javax.swing.JToggleButton dash;
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
