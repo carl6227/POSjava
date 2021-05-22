@@ -136,7 +136,6 @@ public class WaiterDashBoard extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         AddOrder = new javax.swing.JButton();
         CancelOrder = new javax.swing.JButton();
-        ConfirmOrder = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         total = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -276,17 +275,6 @@ public class WaiterDashBoard extends javax.swing.JFrame {
             }
         });
         jPanel1.add(CancelOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 200, 38));
-
-        ConfirmOrder.setBackground(new java.awt.Color(0, 51, 51));
-        ConfirmOrder.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        ConfirmOrder.setForeground(new java.awt.Color(255, 255, 255));
-        ConfirmOrder.setText("Confirm Order");
-        ConfirmOrder.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ConfirmOrderMouseClicked(evt);
-            }
-        });
-        jPanel1.add(ConfirmOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 320, 200, 38));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 153, 153));
@@ -451,17 +439,17 @@ public class WaiterDashBoard extends javax.swing.JFrame {
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(90, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(57, 57, 57)
                 .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(17, Short.MAX_VALUE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(jLabel13)
-                .addGap(1, 1, 1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jPanel12.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 250, 40));
@@ -634,33 +622,6 @@ public class WaiterDashBoard extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_CancelOrderMouseClicked
 
-    private void ConfirmOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ConfirmOrderMouseClicked
-
-        int ID = parseInt(id.getText());
-        if (ID != 0) {
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
-                Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://remotemysql.com/i6jPHFJtKc", "i6jPHFJtKc", "WGD2ufVrPr"); //establishes the connection
-                PreparedStatement stmt = con.prepareStatement("UPDATE orders SET status=? where id=?");
-                stmt.setString(1, "confirmed");
-                stmt.setInt(2, ID);
-                //
-
-                stmt.executeUpdate();
-                dispOrders();
-                JOptionPane.showMessageDialog(this, "Order Confirmed");
-
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "You must select an Order");
-
-        }
-    }//GEN-LAST:event_ConfirmOrderMouseClicked
-
     private void payOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_payOrderMouseClicked
 
         int bill = parseInt(total.getText());
@@ -740,7 +701,6 @@ public class WaiterDashBoard extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddOrder;
     private javax.swing.JButton CancelOrder;
-    private javax.swing.JButton ConfirmOrder;
     private javax.swing.JButton SearchBtn;
     private javax.swing.JTextField Status;
     private javax.swing.JLabel TableCount;
