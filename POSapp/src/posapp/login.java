@@ -38,10 +38,10 @@ public class login extends javax.swing.JFrame {
         loginAsWaiter = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         closeIcon = new javax.swing.JLabel();
         loginAsAdminr = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         loginField = new javax.swing.JTextField();
         loginBtn = new javax.swing.JButton();
@@ -78,18 +78,6 @@ public class login extends javax.swing.JFrame {
         jPanel1.add(jLabel5);
         jLabel5.setBounds(0, 60, 140, 160);
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 29)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 153, 153));
-        jLabel4.setText("Point of Sales Software");
-        jPanel1.add(jLabel4);
-        jLabel4.setBounds(10, 160, 320, 90);
-
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 153, 153));
-        jLabel6.setText("P.O.S");
-        jPanel1.add(jLabel6);
-        jLabel6.setBounds(130, 90, 150, 80);
-
         closeIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/posapp/closeIcon.png"))); // NOI18N
         closeIcon.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -115,6 +103,18 @@ public class login extends javax.swing.JFrame {
         });
         jPanel1.add(loginAsAdminr);
         loginAsAdminr.setBounds(90, 320, 140, 40);
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel6.setText("P.O.S");
+        jPanel1.add(jLabel6);
+        jLabel6.setBounds(130, 90, 150, 80);
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Restaurant P.O.S Software");
+        jPanel1.add(jLabel8);
+        jLabel8.setBounds(50, 160, 320, 90);
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, 320, 400));
 
@@ -285,10 +285,10 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JButton loginAsAdminr;

@@ -176,6 +176,7 @@ public class WaiterDashBoard extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -226,7 +227,7 @@ public class WaiterDashBoard extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(transactionList);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 60, 510, 240));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 60, 550, 240));
 
         SearchBtn.setBackground(new java.awt.Color(0, 51, 51));
         SearchBtn.setForeground(new java.awt.Color(255, 255, 255));
@@ -241,7 +242,7 @@ public class WaiterDashBoard extends javax.swing.JFrame {
                 SearchBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(SearchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 10, 90, 40));
+        jPanel1.add(SearchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 10, 90, 40));
 
         searchTableNum.setText("Search orders by table number...");
         searchTableNum.addActionListener(new java.awt.event.ActionListener() {
@@ -257,7 +258,7 @@ public class WaiterDashBoard extends javax.swing.JFrame {
                 searchTableNumKeyReleased(evt);
             }
         });
-        jPanel1.add(searchTableNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, 210, 40));
+        jPanel1.add(searchTableNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, 210, 40));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 153, 153));
@@ -423,7 +424,7 @@ public class WaiterDashBoard extends javax.swing.JFrame {
         tablenum.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10" }));
         jPanel1.add(tablenum, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 90, 40));
 
-        jPanel12.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, 750, 450));
+        jPanel12.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, 790, 450));
 
         menulist.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         menulist.setModel(new javax.swing.table.DefaultTableModel(
@@ -444,7 +445,7 @@ public class WaiterDashBoard extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(menulist);
 
-        jPanel12.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 250, 360));
+        jPanel12.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 210, 360));
 
         jPanel5.setBackground(new java.awt.Color(0, 102, 102));
 
@@ -459,7 +460,7 @@ public class WaiterDashBoard extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(57, 57, 57)
                 .addComponent(jLabel13, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(60, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -469,7 +470,7 @@ public class WaiterDashBoard extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel12.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 250, 40));
+        jPanel12.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 210, 40));
 
         jPanel7.setBackground(new java.awt.Color(25, 68, 68));
         jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -477,7 +478,7 @@ public class WaiterDashBoard extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Waiter");
-        jPanel7.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 133, -1));
+        jPanel7.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 133, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/posapp/rsz_logout.png"))); // NOI18N
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -494,6 +495,9 @@ public class WaiterDashBoard extends javax.swing.JFrame {
             }
         });
         jPanel7.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 10, 50, 30));
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/posapp/user.png"))); // NOI18N
+        jPanel7.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 0, 60, 50));
 
         jPanel12.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 1030, 50));
 
@@ -763,6 +767,7 @@ public class WaiterDashBoard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel12;

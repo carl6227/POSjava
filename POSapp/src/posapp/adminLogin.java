@@ -125,7 +125,7 @@ public class adminLogin extends javax.swing.JFrame {
         jLabel5.setBounds(0, 60, 140, 160);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 153, 153));
+        jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("P.O.S");
         jPanel3.add(jLabel6);
         jLabel6.setBounds(130, 90, 150, 80);
@@ -139,11 +139,11 @@ public class adminLogin extends javax.swing.JFrame {
         jPanel3.add(closeIcon);
         closeIcon.setBounds(280, 0, 40, 40);
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 29)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(0, 153, 153));
-        jLabel7.setText("Point of Sales Software");
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Restaurant P.O.S Software");
         jPanel3.add(jLabel7);
-        jLabel7.setBounds(10, 160, 320, 90);
+        jLabel7.setBounds(50, 160, 320, 90);
 
         loginAsWaiter.setBackground(new java.awt.Color(255, 255, 255));
         loginAsWaiter.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N

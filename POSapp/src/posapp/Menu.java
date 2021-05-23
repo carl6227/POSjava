@@ -218,7 +218,11 @@ public final class Menu extends javax.swing.JInternalFrame {
 
         String Category = category.getText();
         String menuname = menuName.getText();
+        
+        if(Category.matches("[0-9]+")==false && menuname.matches("[0-9]+")==false && price.getText().matches("[0-9]+")){
         int Price = parseInt(price.getText());
+        
+        
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/posjava", "root", ""); //establishes the connection
@@ -236,6 +240,10 @@ public final class Menu extends javax.swing.JInternalFrame {
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }else{
+         JOptionPane.showMessageDialog(this, "Please enter a valid input");
+        
         }
 
     }//GEN-LAST:event_AddmenuMouseClicked

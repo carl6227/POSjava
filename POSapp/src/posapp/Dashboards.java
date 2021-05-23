@@ -29,11 +29,12 @@ public class Dashboards extends javax.swing.JInternalFrame {
     public Dashboards() throws ClassNotFoundException, SQLException {
         initComponents();
         dispOrders();
-        dispOrders();
-       
+        dispReports();
+
     }
-     public void dispReports(){
-        
+
+    public void dispReports() {
+
         try {
             Class.forName("com.mysql.jdbc.Driver"); //load the driver
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/posjava", "root", ""); //establishes the connection
@@ -45,7 +46,7 @@ public class Dashboards extends javax.swing.JInternalFrame {
             } else {
                 JOptionPane.showMessageDialog(null, "NO sales Yet");
             }
-            
+
             PreparedStatement stmt2 = con.prepareStatement("SELECT count(*) as menuCount FROM menu");
             ResultSet rs2 = stmt2.executeQuery();
             if (rs2.next()) {
@@ -64,9 +65,10 @@ public class Dashboards extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             System.out.println(e);
 
-        } 
-        }// TODO add your handling code here:
-public void dispOrders() throws ClassNotFoundException, SQLException {
+        }
+    }// TODO add your handling code here:
+
+    public void dispOrders() throws ClassNotFoundException, SQLException {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/posjava", "root", ""); //establishes the connection
@@ -101,6 +103,7 @@ public void dispOrders() throws ClassNotFoundException, SQLException {
             JOptionPane.showMessageDialog(null, ex);
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -373,7 +376,7 @@ public void dispOrders() throws ClassNotFoundException, SQLException {
 
     private void transactionListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_transactionListMouseClicked
 
-       
+
     }//GEN-LAST:event_transactionListMouseClicked
 
     private void searchTableNumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchTableNumActionPerformed
@@ -393,35 +396,31 @@ public void dispOrders() throws ClassNotFoundException, SQLException {
         javax.swing.table.TableRowSorter<javax.swing.table.DefaultTableModel> tr = new javax.swing.table.TableRowSorter<javax.swing.table.DefaultTableModel>(model);
         transactionList.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter(searchTableNum.getText().trim()));
-        
-      
- 
-       
-       int tblnum = parseInt(searchTableNum.getText().substring(1));
-       
-        try {
-           Class.forName("com.mysql.jdbc.Driver"); //load the driver
-           Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/posjava", "root", ""); //establishes the connection
-           PreparedStatement stmt =con.prepareStatement("SELECT sum(subtotal) as totalBill FROM orders WHERE status='delivered' and tableno=?"); //get the connection stream(connection port)
-           stmt.setInt(1,tblnum);
-            ResultSet rs = stmt.executeQuery();
-             if (rs.next()) {
-                   
-                
+
+        if (searchTableNum.getText().matches("[0-9]+")) {
+            int tblnum = parseInt(searchTableNum.getText().substring(1));
+            try {
+                Class.forName("com.mysql.jdbc.Driver"); //load the driver
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/posjava", "root", ""); //establishes the connection
+                PreparedStatement stmt = con.prepareStatement("SELECT sum(subtotal) as totalBill FROM orders WHERE status='delivered' and tableno=?"); //get the connection stream(connection port)
+                stmt.setInt(1, tblnum);
+                ResultSet rs = stmt.executeQuery();
+                if (rs.next()) {
+
                 } else {
                     JOptionPane.showMessageDialog(null, "Invalid username or Password");
-                  
+
                 }
-           
-           
-       
-           con.close();
-       } catch (Exception e) {
-           System.out.println(e);
-           
-           
-           
-       }       // TODO add your handling code here:
+
+                con.close();
+            } catch (Exception e) {
+                System.out.println(e);
+
+            }       // TODO add your handling code here:
+
+        }
+
+
     }//GEN-LAST:event_SearchBtnMouseClicked
 
     private void SearchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchBtnActionPerformed
