@@ -50,6 +50,7 @@ public class adminLogin extends javax.swing.JFrame {
         loginAsWaiter = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -163,9 +164,10 @@ public class adminLogin extends javax.swing.JFrame {
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, 320, 390));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 650, 400));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 400));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginFieldActionPerformed
@@ -178,7 +180,7 @@ public class adminLogin extends javax.swing.JFrame {
         String password = passField.getText();
         try {
             Class.forName("com.mysql.jdbc.Driver"); //load the driver
-            try (Connection con = DriverManager.getConnection("jdbc:mysql://remotemysql.com/i6jPHFJtKc", "i6jPHFJtKc", "WGD2ufVrPr") //establishes the connection
+            try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/posjava", "root", "") //establishes the connection
                     ) {
                 PreparedStatement stmt = con.prepareStatement("SELECT * FROM users WHERE name=? AND password=? "); //get the connection stream(connection port)
                 stmt.setString(1, username);

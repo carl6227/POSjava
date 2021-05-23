@@ -24,6 +24,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class KitchenDashBoard extends javax.swing.JFrame {
 
+    
+    WaiterDashBoard WB= new WaiterDashBoard();
     /**
      * Creates new form KitchenDashBoard
      */
@@ -40,7 +42,7 @@ public class KitchenDashBoard extends javax.swing.JFrame {
      */public void dispOrders() throws ClassNotFoundException, SQLException {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://remotemysql.com/i6jPHFJtKc", "i6jPHFJtKc", "WGD2ufVrPr"); //establishes the connection
+            Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/posjava", "root", ""); //establishes the connection
             PreparedStatement stmt = con.prepareStatement("SELECT * FROM orders WHERE status!='Delivered'");
             ResultSet rs = stmt.executeQuery();
             Class.forName("com.mysql.jdbc.Driver");
@@ -77,8 +79,9 @@ public class KitchenDashBoard extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jPanel7 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        closeIcon = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         orderList = new javax.swing.JTable();
         id = new javax.swing.JTextField();
@@ -96,16 +99,23 @@ public class KitchenDashBoard extends javax.swing.JFrame {
 
         jPanel7.setBackground(new java.awt.Color(25, 68, 68));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/posapp/rsz_1rsz_60a646201b470.png"))); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("Kitchen");
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/posapp/rsz_1refresh.png"))); // NOI18N
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel2MouseClicked(evt);
             }
         });
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("Kitchen");
+        closeIcon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/posapp/closeIcon.png"))); // NOI18N
+        closeIcon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                closeIconMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -114,20 +124,29 @@ public class KitchenDashBoard extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
                 .addGap(86, 86, 86)
                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 308, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 261, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(closeIcon, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(23, Short.MAX_VALUE)
-                .addComponent(jLabel12)
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel12))
+                    .addGroup(jPanel7Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(closeIcon))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
-        jPanel1.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, -1));
+        jPanel1.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, 60));
 
         jScrollPane1.setForeground(new java.awt.Color(0, 153, 153));
 
@@ -213,16 +232,10 @@ public class KitchenDashBoard extends javax.swing.JFrame {
         jPanel1.add(ConfirmOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 120, 38));
         jPanel1.add(menuName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 120, 40));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, 390));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 590, 380));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-        login lg=new login();
-        lg.setVisible(true);
-        setVisible(false);
-    }//GEN-LAST:event_jLabel2MouseClicked
 
     private void orderListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_orderListMouseClicked
 
@@ -241,7 +254,7 @@ public class KitchenDashBoard extends javax.swing.JFrame {
         if (ID != 0) {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
-                Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://remotemysql.com/i6jPHFJtKc", "i6jPHFJtKc", "WGD2ufVrPr"); //establishes the connection
+                Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/posjava", "root", ""); //establishes the connection
                 PreparedStatement stmt = con.prepareStatement("UPDATE orders SET status=? where id=?");
                 stmt.setString(1, "Rejected");
                 stmt.setInt(2, ID);
@@ -249,6 +262,7 @@ public class KitchenDashBoard extends javax.swing.JFrame {
 
                 stmt.executeUpdate();
                 dispOrders();
+                WB.dispOrders();
                 JOptionPane.showMessageDialog(this, "Order rejected");
 
             } catch (ClassNotFoundException ex) {
@@ -267,7 +281,7 @@ public class KitchenDashBoard extends javax.swing.JFrame {
         if (ID != 0) {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
-                Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://remotemysql.com/i6jPHFJtKc", "i6jPHFJtKc", "WGD2ufVrPr"); //establishes the connection
+                Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/posjava", "root", ""); //establishes the connection
                 PreparedStatement stmt = con.prepareStatement("UPDATE orders SET status=? where id=?");
                 stmt.setString(1, "Confirmed");
                 stmt.setInt(2, ID);
@@ -275,6 +289,7 @@ public class KitchenDashBoard extends javax.swing.JFrame {
 
                 stmt.executeUpdate();
                 dispOrders();
+                WB.dispOrders();
                 JOptionPane.showMessageDialog(this, "Order confirmed");
 
             } catch (ClassNotFoundException ex) {
@@ -287,6 +302,20 @@ public class KitchenDashBoard extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_ConfirmOrderMouseClicked
+
+    private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
+        try {
+            dispOrders();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(KitchenDashBoard.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(KitchenDashBoard.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void closeIconMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_closeIconMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_closeIconMouseClicked
 
     /**
      * @param args the command line arguments
@@ -331,6 +360,7 @@ public class KitchenDashBoard extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ConfirmOrder;
+    private javax.swing.JLabel closeIcon;
     private javax.swing.JTextField id;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;

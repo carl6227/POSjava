@@ -27,21 +27,46 @@ public class WaiterDashBoard extends javax.swing.JFrame {
 
     /**
      * Creates new form WaiterDashBoard
+     *
      * @throws java.lang.ClassNotFoundException
      * @throws java.sql.SQLException
      */
     public WaiterDashBoard() throws ClassNotFoundException, SQLException {
         initComponents();
-         id.setVisible(false);
+        id.setVisible(false);
         Status.setVisible(false);
         dispOrders();
         dispMenu();
-    } 
+        addToDropDown();
+    }
+
     
-    public void dispMenu(){
-    try {
+    //defining function that put menu name into a dropdown.
+    public void addToDropDown(){
+    
+     try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://remotemysql.com/i6jPHFJtKc", "i6jPHFJtKc", "WGD2ufVrPr"); //establishes the connection
+            Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/posjava", "root", ""); //establishes the connection
+            PreparedStatement stmt = con.prepareStatement("SELECT menuname FROM menu");
+            ResultSet rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                menuname.addItem(rs.getString("menuname"));
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
+    
+    
+    
+    
+    
+//    defining dispMenu function
+    public void dispMenu() {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/posjava", "root", ""); //establishes the connection
             PreparedStatement stmt = con.prepareStatement("SELECT * FROM menu");
             ResultSet rs = stmt.executeQuery();
             Class.forName("com.mysql.jdbc.Driver");
@@ -58,10 +83,9 @@ public class WaiterDashBoard extends javax.swing.JFrame {
                 int i;
 
                 for (i = 1; i <= q; i++) {
-                  
+
                     columnData.add(rs.getString("menuname"));
                     columnData.add(rs.getString("price"));
-                  
 
                 }
                 RecordTable.addRow(columnData);
@@ -69,19 +93,13 @@ public class WaiterDashBoard extends javax.swing.JFrame {
         } catch (Exception ex) {
             JOptionPane.showMessageDialog(null, ex);
         }
-    
-    
-    
-    
+
     }
-    
-    
-    
-    
- public void dispOrders() throws ClassNotFoundException, SQLException {
+
+    public void dispOrders() throws ClassNotFoundException, SQLException {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://remotemysql.com/i6jPHFJtKc", "i6jPHFJtKc", "WGD2ufVrPr"); //establishes the connection
+            Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/posjava", "root", ""); //establishes the connection
             PreparedStatement stmt = con.prepareStatement("SELECT * FROM orders");
             ResultSet rs = stmt.executeQuery();
             Class.forName("com.mysql.jdbc.Driver");
@@ -113,6 +131,7 @@ public class WaiterDashBoard extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex);
         }
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -129,9 +148,6 @@ public class WaiterDashBoard extends javax.swing.JFrame {
         transactionList = new javax.swing.JTable();
         SearchBtn = new javax.swing.JButton();
         searchTableNum = new javax.swing.JTextField();
-        tablenum = new javax.swing.JTextField();
-        menuname = new javax.swing.JTextField();
-        qty = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         AddOrder = new javax.swing.JButton();
@@ -141,9 +157,7 @@ public class WaiterDashBoard extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         payOrder = new javax.swing.JButton();
-        price = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
+        qty = new javax.swing.JTextField();
         deliverOrder = new javax.swing.JButton();
         id = new javax.swing.JTextField();
         Status = new javax.swing.JTextField();
@@ -152,13 +166,16 @@ public class WaiterDashBoard extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         TableCount = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
+        menuname = new javax.swing.JComboBox<>();
+        tablenum = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         menulist = new javax.swing.JTable();
         jPanel5 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         jPanel7 = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -172,6 +189,7 @@ public class WaiterDashBoard extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(1020, 550));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -240,19 +258,16 @@ public class WaiterDashBoard extends javax.swing.JFrame {
             }
         });
         jPanel1.add(searchTableNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 10, 210, 40));
-        jPanel1.add(tablenum, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 70, 38));
-        jPanel1.add(menuname, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 200, 38));
-        jPanel1.add(qty, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 220, 80, 38));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(0, 153, 153));
         jLabel4.setText("Table no.");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 79, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 130, 79, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(0, 153, 153));
         jLabel5.setText("Menu name");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 79, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 79, -1));
 
         AddOrder.setBackground(new java.awt.Color(0, 51, 51));
         AddOrder.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -263,7 +278,7 @@ public class WaiterDashBoard extends javax.swing.JFrame {
                 AddOrderMouseClicked(evt);
             }
         });
-        jPanel1.add(AddOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 200, 40));
+        jPanel1.add(AddOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 200, 40));
 
         CancelOrder.setBackground(new java.awt.Color(0, 51, 51));
         CancelOrder.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -274,7 +289,7 @@ public class WaiterDashBoard extends javax.swing.JFrame {
                 CancelOrderMouseClicked(evt);
             }
         });
-        jPanel1.add(CancelOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 330, 200, 38));
+        jPanel1.add(CancelOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 260, 200, 38));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(0, 153, 153));
@@ -325,16 +340,13 @@ public class WaiterDashBoard extends javax.swing.JFrame {
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 300, 230, 120));
-        jPanel1.add(price, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 220, 70, 38));
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(0, 153, 153));
-        jLabel8.setText("Price");
-        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 200, 79, -1));
-
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel9.setText("Php");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 230, 41, -1));
+        qty.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                qtyActionPerformed(evt);
+            }
+        });
+        jPanel1.add(qty, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 80, 40));
 
         deliverOrder.setBackground(new java.awt.Color(0, 51, 51));
         deliverOrder.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -345,9 +357,9 @@ public class WaiterDashBoard extends javax.swing.JFrame {
                 deliverOrderMouseClicked(evt);
             }
         });
-        jPanel1.add(deliverOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 200, 38));
-        jPanel1.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 80, 38));
-        jPanel1.add(Status, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 420, 80, 38));
+        jPanel1.add(deliverOrder, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 200, 38));
+        jPanel1.add(id, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 80, 38));
+        jPanel1.add(Status, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 360, 80, 38));
 
         jPanel13.setBackground(new java.awt.Color(0, 102, 102));
 
@@ -404,7 +416,12 @@ public class WaiterDashBoard extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(0, 153, 153));
         jLabel11.setText("Quantity");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 79, -1));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 79, -1));
+
+        jPanel1.add(menuname, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 190, 40));
+
+        tablenum.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "01", "02", "03", "04", "05", "06", "07", "08", "09", "10" }));
+        jPanel1.add(tablenum, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 90, 40));
 
         jPanel12.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, 750, 450));
 
@@ -455,43 +472,35 @@ public class WaiterDashBoard extends javax.swing.JFrame {
         jPanel12.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 250, 40));
 
         jPanel7.setBackground(new java.awt.Color(25, 68, 68));
+        jPanel7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/posapp/rsz_1rsz_60a646201b470.png"))); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("Waiter");
+        jPanel7.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 133, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/posapp/rsz_logout.png"))); // NOI18N
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
+        jPanel7.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(960, 10, -1, -1));
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/posapp/rsz_1refresh.png"))); // NOI18N
         jLabel2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel2MouseClicked(evt);
             }
         });
+        jPanel7.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 10, 50, 30));
 
-        jLabel12.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("Waiter");
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addGap(99, 99, 99)
-                .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 712, Short.MAX_VALUE)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41))
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(jLabel12)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        jPanel12.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1030, -1));
+        jPanel12.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 1030, 50));
 
         getContentPane().add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 500));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void transactionListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_transactionListMouseClicked
@@ -499,50 +508,52 @@ public class WaiterDashBoard extends javax.swing.JFrame {
         DefaultTableModel RecordTable = (DefaultTableModel) transactionList.getModel();
         int SelectedRows = transactionList.getSelectedRow();
 
-        id.setText(RecordTable.getValueAt(SelectedRows, 0).toString());
-        tablenum.setText(RecordTable.getValueAt(SelectedRows, 1).toString());
-        menuname.setText(RecordTable.getValueAt(SelectedRows, 2).toString());
-        qty.setText(RecordTable.getValueAt(SelectedRows, 3).toString());
-        price.setText(RecordTable.getValueAt(SelectedRows, 4).toString());
-        Status.setText(RecordTable.getValueAt(SelectedRows, 5).toString());
+        id.setText(RecordTable.getValueAt(SelectedRows, 0).toString()); 
+        tablenum.getModel().setSelectedItem(RecordTable.getValueAt(SelectedRows, 1).toString());
+        menuname.getModel().setSelectedItem(RecordTable.getValueAt(SelectedRows, 2).toString());
+        qty.setText(RecordTable.getValueAt(SelectedRows, 4).toString());
+        Status.setText(RecordTable.getValueAt(SelectedRows, 6).toString());
     }//GEN-LAST:event_transactionListMouseClicked
 
     private void SearchBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SearchBtnMouseClicked
-         DefaultTableModel model = (DefaultTableModel) transactionList.getModel();
-        javax.swing.table.TableRowSorter<DefaultTableModel> tr = new javax.swing.table.TableRowSorter<DefaultTableModel>(model);
+        DefaultTableModel model = (DefaultTableModel) transactionList.getModel();
+        javax.swing.table.TableRowSorter<DefaultTableModel> tr = new javax.swing.table.TableRowSorter<>(model);
         transactionList.setRowSorter(tr);
         tr.setRowFilter(RowFilter.regexFilter(searchTableNum.getText().trim()));
-        
-      
-        TableCount.setText(searchTableNum.getText());
-        
-       
-       int tblnum = parseInt(searchTableNum.getText().substring(1));
-       
+        String regex = "[0-9]+";
+       if(searchTableNum.getText().matches(regex)){
+         int searchNumInt= parseInt(searchTableNum.getText());
+           if(searchNumInt>0&&searchNumInt<=10){
+                TableCount.setText(searchTableNum.getText());
+           }else{
+            JOptionPane.showMessageDialog(null, "Table number does not exist");
+           }  
+           
+       }else{
+        TableCount.setText("00");
+       }
+        int tblnum = parseInt(TableCount.getText().substring(1));
+
         try {
-           Class.forName("com.mysql.jdbc.Driver"); //load the driver
-           Connection con = DriverManager.getConnection("jdbc:mysql://remotemysql.com/i6jPHFJtKc", "i6jPHFJtKc", "WGD2ufVrPr"); //establishes the connection
-           PreparedStatement stmt =con.prepareStatement("SELECT sum(subtotal) as totalBill FROM orders WHERE status='delivered' and tableno=?"); //get the connection stream(connection port)
-           stmt.setInt(1,tblnum);
-       
+            Class.forName("com.mysql.jdbc.Driver"); //load the driver
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/posjava", "root", ""); //establishes the connection
+            PreparedStatement stmt = con.prepareStatement("SELECT sum(subtotal) as totalBill FROM orders WHERE status='delivered' and tableno=?"); //get the connection stream(connection port)
+            stmt.setInt(1, tblnum);
+
             ResultSet rs = stmt.executeQuery();
-             if (rs.next()) {
-                   
+            if (rs.next()) {
+
                 total.setText(rs.getString("totalBill"));
-                } else {
-                    JOptionPane.showMessageDialog(null, "Invalid username or Password");
-                  
-                }
-           
-           
-       
-           con.close();
-       } catch (Exception e) {
-           System.out.println(e);
-           
-           
-           
-       }       // TODO add your handling code here:
+            } else {
+                JOptionPane.showMessageDialog(null, "Invalid username or Password");
+
+            }
+
+            con.close();
+        } catch (Exception e) {
+            System.out.println(e);
+
+        }       // TODO add your handling code here:
 
     }//GEN-LAST:event_SearchBtnMouseClicked
 
@@ -563,28 +574,47 @@ public class WaiterDashBoard extends javax.swing.JFrame {
     }//GEN-LAST:event_searchTableNumKeyReleased
 
     private void AddOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_AddOrderMouseClicked
-        int table_num = parseInt(tablenum.getText());
-        String menuName = menuname.getText();
-        int Price = parseInt(price.getText());
-        int quantity = parseInt(qty.getText());
-        int subtotal = Price * quantity;
+        String regex = "[0-9]+";
+        int table_num = parseInt((String) tablenum.getSelectedItem());
+        String menuName = menuname.getSelectedItem().toString();
+        
         String Status = "Pending";
-        if (table_num != 0 || menuName != "" || Price != 0 || quantity != 0) {
 
+        if (qty.getText().matches(regex)) {
+          int quantity = parseInt(qty.getText());
             try {
                 Class.forName("com.mysql.jdbc.Driver");
-                Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://remotemysql.com/i6jPHFJtKc", "i6jPHFJtKc", "WGD2ufVrPr"); //establishes the connection
-                PreparedStatement stmt = con.prepareStatement("INSERT INTO orders(tableno,item,quantity,price,subtotal,status) values(?,?,?,?,?,?)");
+                Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/posjava", "root", ""); //establishes the connection
+                PreparedStatement stmt2 = con.prepareStatement("SELECT price FROM menu WHERE menuname=?");
+                stmt2.setString(1, menuName);
+                ResultSet rs2 = stmt2.executeQuery();
+                 if (rs2.next()) {
+
+                int subtotal = parseInt(rs2.getString("price")) * quantity;
+                 PreparedStatement stmt = con.prepareStatement("INSERT INTO orders(tableno,item,quantity,price,subtotal,status) values(?,?,?,?,?,?)");
+
                 stmt.setInt(1, table_num);
                 stmt.setString(2, menuName);
                 stmt.setInt(3, quantity);
-                stmt.setInt(4, Price);
+                stmt.setInt(4, parseInt(rs2.getString("price")));
                 stmt.setInt(5, subtotal);
                 stmt.setString(6, Status);
 
                 stmt.executeUpdate();
                 dispOrders();
+                 
                 JOptionPane.showMessageDialog(this, "Order Added");
+                tablenum.setSelectedItem("");
+                qty.setText("");
+                menuname.setSelectedItem("");
+                
+            } else {
+                JOptionPane.showMessageDialog(null, "Invalid operation");
+
+            }
+               
+               
+               
 
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
@@ -592,7 +622,7 @@ public class WaiterDashBoard extends javax.swing.JFrame {
                 Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            JOptionPane.showMessageDialog(this, "All field must not be empty");
+            JOptionPane.showMessageDialog(this, "Please input a valid value");
         }
     }//GEN-LAST:event_AddOrderMouseClicked
 
@@ -602,7 +632,7 @@ public class WaiterDashBoard extends javax.swing.JFrame {
 
             try {
                 Class.forName("com.mysql.jdbc.Driver");
-                Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://remotemysql.com/i6jPHFJtKc", "i6jPHFJtKc", "WGD2ufVrPr"); //establishes the connection
+                Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/posjava", "root", ""); //establishes the connection
                 PreparedStatement stmt = con.prepareStatement("DELETE FROM orders where id=?");
                 stmt.setInt(1, ID);
 
@@ -624,13 +654,14 @@ public class WaiterDashBoard extends javax.swing.JFrame {
 
     private void payOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_payOrderMouseClicked
 
-        int bill = parseInt(total.getText());
-        int tblnum = parseInt(TableCount.getText());
-        if (bill!=0 && tblnum!=0){
-
+      
+       
+        if (total.getText().matches("[0-9]+")) {
+          int bill = parseInt(total.getText());
+          int tblnum = parseInt(TableCount.getText());
             try {
                 Class.forName("com.mysql.jdbc.Driver");
-                Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://remotemysql.com/i6jPHFJtKc", "i6jPHFJtKc", "WGD2ufVrPr"); //establishes the connection
+                Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/posjava", "root", ""); //establishes the connection
                 PreparedStatement stmt = con.prepareStatement("INSERT INTO sales(tableno,amount) values(?,?)");
                 stmt.setInt(1, tblnum);
                 stmt.setInt(2, bill);
@@ -642,7 +673,7 @@ public class WaiterDashBoard extends javax.swing.JFrame {
 
                 PreparedStatement stmt2 = con.prepareStatement("DELETE FROM orders WHERE tableno=? and status=?");
                 stmt2.setInt(1, tblnum);
-                stmt2.setString(2,"Delivered");
+                stmt2.setString(2, "Delivered");
                 stmt2.executeUpdate();
                 dispOrders();
                 JOptionPane.showMessageDialog(this, "Sales Added");
@@ -651,19 +682,22 @@ public class WaiterDashBoard extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }else{
-            JOptionPane.showMessageDialog(this, "No delivered Items selected");
+        } else {
+            JOptionPane.showMessageDialog(this, "Please select a table");
         }
     }//GEN-LAST:event_payOrderMouseClicked
 
     private void deliverOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deliverOrderMouseClicked
         int ID = parseInt(id.getText());
+        System.out.println(Status.getText());
         if (ID != 0) {
-            if (Status.getText() != "pending") {
 
+            if ("Pending".equals(Status.getText())) {
+                JOptionPane.showMessageDialog(this, "Order still Pending!");
+            } else {
                 try {
                     Class.forName("com.mysql.jdbc.Driver");
-                    Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://remotemysql.com/i6jPHFJtKc", "i6jPHFJtKc", "WGD2ufVrPr"); //establishes the connection
+                    Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/posjava", "root", ""); //establishes the connection
                     PreparedStatement stmt = con.prepareStatement("UPDATE orders SET status=? where id=?");
                     stmt.setString(1, "Delivered");
                     stmt.setInt(2, ID);
@@ -671,32 +705,46 @@ public class WaiterDashBoard extends javax.swing.JFrame {
 
                     stmt.executeUpdate();
                     dispOrders();
-                    JOptionPane.showMessageDialog(this, "Order Delivered");
 
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (SQLException ex) {
                     Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+
                 }
-            } else {
-                JOptionPane.showMessageDialog(this, "Order still Pending!");
+                JOptionPane.showMessageDialog(this, "Order Delivered");
+
             }
         } else {
             JOptionPane.showMessageDialog(this, "You must select an Order");
         }
     }//GEN-LAST:event_deliverOrderMouseClicked
 
+    private void qtyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_qtyActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_qtyActionPerformed
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+      login lg= new login();
+      lg.setVisible(true);
+      setVisible(false);
+    }//GEN-LAST:event_jLabel1MouseClicked
+
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-        login lg=new login();
-        lg.setVisible(true);
-        setVisible(false);
+        try {
+            dispOrders();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(WaiterDashBoard.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(WaiterDashBoard.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        dispMenu();
+        addToDropDown();
     }//GEN-LAST:event_jLabel2MouseClicked
 
     /**
      * @param args the command line arguments
      */
-   
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddOrder;
@@ -706,6 +754,7 @@ public class WaiterDashBoard extends javax.swing.JFrame {
     private javax.swing.JLabel TableCount;
     private javax.swing.JButton deliverOrder;
     private javax.swing.JTextField id;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
@@ -715,8 +764,6 @@ public class WaiterDashBoard extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel12;
     private javax.swing.JPanel jPanel13;
@@ -728,15 +775,13 @@ public class WaiterDashBoard extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable menulist;
-    private javax.swing.JTextField menuname;
+    private javax.swing.JComboBox<String> menuname;
     private javax.swing.JButton payOrder;
-    private javax.swing.JTextField price;
     private javax.swing.JTextField qty;
     private javax.swing.JTextField searchTableNum;
-    private javax.swing.JTextField tablenum;
+    private javax.swing.JComboBox<String> tablenum;
     private javax.swing.JTextField total;
     private javax.swing.JTable transactionList;
     // End of variables declaration//GEN-END:variables
 
-   
 }

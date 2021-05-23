@@ -22,6 +22,8 @@ public class login extends javax.swing.JFrame {
      */
     public login() {
         initComponents();
+        loginField.requestFocus();
+       
     }
 
     /**
@@ -199,7 +201,7 @@ public class login extends javax.swing.JFrame {
         String password= passField.getText();
         try {
            Class.forName("com.mysql.jdbc.Driver"); //load the driver
-           try (Connection con = DriverManager.getConnection("jdbc:mysql://remotemysql.com/i6jPHFJtKc", "i6jPHFJtKc", "WGD2ufVrPr") //establishes the connection
+           try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/posjava", "root", "") //establishes the connection
            ) {
                PreparedStatement stmt =con.prepareStatement("SELECT * FROM users WHERE name=? AND password=? "); //get the connection stream(connection port)
                stmt.setString(1,username);

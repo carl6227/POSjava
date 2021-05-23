@@ -5,11 +5,17 @@
  */
 package posapp;
 
+import static java.lang.Integer.parseInt;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.SQLException;
+import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
+import static jdk.nashorn.internal.runtime.Debug.id;
 
 /**
  *
@@ -20,12 +26,17 @@ public class Dashboards extends javax.swing.JInternalFrame {
     /**
      * Creates new form Dashboards
      */
-    public Dashboards() {
+    public Dashboards() throws ClassNotFoundException, SQLException {
         initComponents();
-
+        dispOrders();
+        dispOrders();
+       
+    }
+     public void dispReports(){
+        
         try {
             Class.forName("com.mysql.jdbc.Driver"); //load the driver
-            Connection con = DriverManager.getConnection("jdbc:mysql://remotemysql.com/i6jPHFJtKc", "i6jPHFJtKc", "WGD2ufVrPr"); //establishes the connection
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/posjava", "root", ""); //establishes the connection
             PreparedStatement stmt = con.prepareStatement("SELECT sum(amount) as totalsale FROM sales"); //get the connection stream(connection port)
 
             ResultSet rs = stmt.executeQuery();
@@ -33,19 +44,19 @@ public class Dashboards extends javax.swing.JInternalFrame {
                 totalSales.setText(rs.getString("totalsale"));
             } else {
                 JOptionPane.showMessageDialog(null, "NO sales Yet");
-
             }
+            
             PreparedStatement stmt2 = con.prepareStatement("SELECT count(*) as menuCount FROM menu");
             ResultSet rs2 = stmt2.executeQuery();
             if (rs2.next()) {
-                totalMenu.setText(rs.getString("menuCount"));
+                totalMenu.setText(rs2.getString("menuCount"));
             } else {
                 JOptionPane.showMessageDialog(null, "NO Menu");
             }
             PreparedStatement stmt3 = con.prepareStatement("SELECT count(status) as orderPending FROM orders WHERE status='pending'");
             ResultSet rs3 = stmt3.executeQuery();
             if (rs3.next()) {
-                pendingOrders.setText(rs.getString("orderPending"));
+                pendingOrders.setText(rs3.getString("orderPending"));
             } else {
                 JOptionPane.showMessageDialog(null, "NO Menu");
             }
@@ -53,9 +64,43 @@ public class Dashboards extends javax.swing.JInternalFrame {
         } catch (Exception e) {
             System.out.println(e);
 
-        }       // TODO add your handling code here:
-    }
+        } 
+        }// TODO add your handling code here:
+public void dispOrders() throws ClassNotFoundException, SQLException {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/posjava", "root", ""); //establishes the connection
+            PreparedStatement stmt = con.prepareStatement("SELECT * FROM orders");
+            ResultSet rs = stmt.executeQuery();
+            Class.forName("com.mysql.jdbc.Driver");
 
+            ResultSetMetaData stData = rs.getMetaData();
+
+            int q = stData.getColumnCount();
+
+            javax.swing.table.DefaultTableModel RecordTable = (javax.swing.table.DefaultTableModel) transactionList.getModel();
+            RecordTable.setRowCount(0);
+
+            while (rs.next()) {
+                Vector columnData = new Vector();
+                int i;
+
+                for (i = 1; i <= q; i++) {
+                    columnData.add(rs.getString("id"));
+                    columnData.add("0" + rs.getString("tableno"));
+                    columnData.add(rs.getString("item"));
+                    columnData.add(rs.getString("quantity"));
+                    columnData.add(rs.getString("price"));
+                    columnData.add(rs.getString("subtotal"));
+                    columnData.add(rs.getString("status"));
+
+                }
+                RecordTable.addRow(columnData);
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -76,16 +121,19 @@ public class Dashboards extends javax.swing.JInternalFrame {
         jPanel9 = new javax.swing.JPanel();
         totalMenu = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jPanel16 = new javax.swing.JPanel();
-        jPanel17 = new javax.swing.JPanel();
-        jPanel18 = new javax.swing.JPanel();
-        pendingOrders = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jPanel25 = new javax.swing.JPanel();
         jPanel26 = new javax.swing.JPanel();
         jPanel27 = new javax.swing.JPanel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        pendingOrders = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        transactionList = new javax.swing.JTable();
+        searchTableNum = new javax.swing.JTextField();
+        SearchBtn = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(204, 255, 204));
         setPreferredSize(new java.awt.Dimension(740, 460));
@@ -107,15 +155,15 @@ public class Dashboards extends javax.swing.JInternalFrame {
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 260, Short.MAX_VALUE)
+            .addGap(0, 230, Short.MAX_VALUE)
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 30, Short.MAX_VALUE)
+            .addGap(0, 20, Short.MAX_VALUE)
         );
 
         jPanel3.add(jPanel6);
-        jPanel6.setBounds(0, 90, 260, 30);
+        jPanel6.setBounds(0, 90, 230, 20);
 
         totalSales.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         totalSales.setForeground(new java.awt.Color(240, 240, 240));
@@ -130,7 +178,7 @@ public class Dashboards extends javax.swing.JInternalFrame {
         jLabel6.setBounds(20, 50, 110, 30);
 
         jPanel5.add(jPanel3);
-        jPanel3.setBounds(60, 50, 260, 120);
+        jPanel3.setBounds(30, 50, 200, 110);
 
         jPanel7.setBackground(new java.awt.Color(0, 102, 102));
         jPanel7.setLayout(null);
@@ -149,11 +197,11 @@ public class Dashboards extends javax.swing.JInternalFrame {
         );
         jPanel9Layout.setVerticalGroup(
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 30, Short.MAX_VALUE)
+            .addGap(0, 20, Short.MAX_VALUE)
         );
 
         jPanel7.add(jPanel9);
-        jPanel9.setBounds(0, 90, 260, 30);
+        jPanel9.setBounds(0, 90, 260, 20);
 
         totalMenu.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         totalMenu.setForeground(new java.awt.Color(240, 240, 240));
@@ -168,45 +216,7 @@ public class Dashboards extends javax.swing.JInternalFrame {
         jLabel3.setBounds(20, 50, 110, 30);
 
         jPanel5.add(jPanel7);
-        jPanel7.setBounds(370, 50, 260, 120);
-
-        jPanel16.setBackground(new java.awt.Color(153, 0, 153));
-        jPanel16.setLayout(null);
-
-        jPanel17.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        jPanel16.add(jPanel17);
-        jPanel17.setBounds(203, 26, 0, 0);
-
-        jPanel18.setBackground(new java.awt.Color(255, 204, 255));
-
-        javax.swing.GroupLayout jPanel18Layout = new javax.swing.GroupLayout(jPanel18);
-        jPanel18.setLayout(jPanel18Layout);
-        jPanel18Layout.setHorizontalGroup(
-            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 260, Short.MAX_VALUE)
-        );
-        jPanel18Layout.setVerticalGroup(
-            jPanel18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 30, Short.MAX_VALUE)
-        );
-
-        jPanel16.add(jPanel18);
-        jPanel18.setBounds(0, 90, 260, 30);
-
-        pendingOrders.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        pendingOrders.setForeground(new java.awt.Color(240, 240, 240));
-        pendingOrders.setText("10");
-        jPanel16.add(pendingOrders);
-        pendingOrders.setBounds(20, 20, 110, 30);
-
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel8.setText("Pending Orders");
-        jPanel16.add(jLabel8);
-        jLabel8.setBounds(20, 50, 110, 30);
-
-        jPanel5.add(jPanel16);
-        jPanel16.setBounds(60, 210, 260, 120);
+        jPanel7.setBounds(260, 50, 200, 110);
 
         jPanel25.setBackground(new java.awt.Color(204, 153, 0));
         jPanel25.setLayout(null);
@@ -231,36 +241,203 @@ public class Dashboards extends javax.swing.JInternalFrame {
         jPanel25.add(jPanel27);
         jPanel27.setBounds(0, 90, 260, 30);
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
-        jLabel7.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel7.setText("8/15");
-        jPanel25.add(jLabel7);
-        jLabel7.setBounds(20, 20, 110, 30);
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(240, 240, 240));
+        jLabel8.setText("Pending Orders");
+        jPanel25.add(jLabel8);
+        jLabel8.setBounds(20, 50, 110, 30);
 
-        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(240, 240, 240));
-        jLabel1.setText("Available Tables");
-        jPanel25.add(jLabel1);
-        jLabel1.setBounds(20, 50, 110, 30);
+        pendingOrders.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        pendingOrders.setForeground(new java.awt.Color(240, 240, 240));
+        pendingOrders.setText("10");
+        jPanel25.add(pendingOrders);
+        pendingOrders.setBounds(20, 20, 110, 30);
 
         jPanel5.add(jPanel25);
-        jPanel25.setBounds(370, 210, 260, 120);
+        jPanel25.setBounds(490, 50, 200, 110);
 
-        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 540));
+        jScrollPane1.setForeground(new java.awt.Color(0, 153, 153));
+
+        transactionList.setBackground(new java.awt.Color(0, 153, 153));
+        transactionList.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        transactionList.setForeground(new java.awt.Color(255, 255, 255));
+        transactionList.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "id", "Table Number", "Menu Name", "Price", "Quanity", "Subtotal", "Status"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+        });
+        transactionList.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                transactionListMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(transactionList);
+
+        jPanel5.add(jScrollPane1);
+        jScrollPane1.setBounds(30, 260, 660, 160);
+
+        searchTableNum.setText("Search orders...");
+        searchTableNum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchTableNumActionPerformed(evt);
+            }
+        });
+        searchTableNum.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                searchTableNumKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                searchTableNumKeyReleased(evt);
+            }
+        });
+        jPanel5.add(searchTableNum);
+        searchTableNum.setBounds(440, 220, 160, 30);
+
+        SearchBtn.setBackground(new java.awt.Color(0, 51, 51));
+        SearchBtn.setForeground(new java.awt.Color(255, 255, 255));
+        SearchBtn.setText("Search");
+        SearchBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                SearchBtnMouseClicked(evt);
+            }
+        });
+        SearchBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SearchBtnActionPerformed(evt);
+            }
+        });
+        jPanel5.add(SearchBtn);
+        SearchBtn.setBounds(610, 220, 80, 30);
+
+        jPanel1.setBackground(new java.awt.Color(0, 153, 153));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 450, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+
+        jPanel5.add(jPanel1);
+        jPanel1.setBounds(240, 200, 450, 10);
+
+        jLabel2.setBackground(new java.awt.Color(0, 153, 153));
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(0, 153, 153));
+        jLabel2.setText("Dashboard reports");
+        jPanel5.add(jLabel2);
+        jLabel2.setBounds(40, 20, 200, 22);
+
+        jPanel2.setBackground(new java.awt.Color(0, 153, 153));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 490, Short.MAX_VALUE)
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 10, Short.MAX_VALUE)
+        );
+
+        jPanel5.add(jPanel2);
+        jPanel2.setBounds(200, 30, 490, 10);
+
+        jLabel4.setBackground(new java.awt.Color(0, 153, 153));
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(0, 153, 153));
+        jLabel4.setText("List of Customer Orders");
+        jPanel5.add(jLabel4);
+        jLabel4.setBounds(40, 190, 200, 22);
+
+        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 720, 540));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void transactionListMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_transactionListMouseClicked
+
+       
+    }//GEN-LAST:event_transactionListMouseClicked
+
+    private void searchTableNumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchTableNumActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchTableNumActionPerformed
+
+    private void searchTableNumKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTableNumKeyPressed
+
+    }//GEN-LAST:event_searchTableNumKeyPressed
+
+    private void searchTableNumKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTableNumKeyReleased
+
+    }//GEN-LAST:event_searchTableNumKeyReleased
+
+    private void SearchBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SearchBtnMouseClicked
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) transactionList.getModel();
+        javax.swing.table.TableRowSorter<javax.swing.table.DefaultTableModel> tr = new javax.swing.table.TableRowSorter<javax.swing.table.DefaultTableModel>(model);
+        transactionList.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(searchTableNum.getText().trim()));
+        
+      
+ 
+       
+       int tblnum = parseInt(searchTableNum.getText().substring(1));
+       
+        try {
+           Class.forName("com.mysql.jdbc.Driver"); //load the driver
+           Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/posjava", "root", ""); //establishes the connection
+           PreparedStatement stmt =con.prepareStatement("SELECT sum(subtotal) as totalBill FROM orders WHERE status='delivered' and tableno=?"); //get the connection stream(connection port)
+           stmt.setInt(1,tblnum);
+            ResultSet rs = stmt.executeQuery();
+             if (rs.next()) {
+                   
+                
+                } else {
+                    JOptionPane.showMessageDialog(null, "Invalid username or Password");
+                  
+                }
+           
+           
+       
+           con.close();
+       } catch (Exception e) {
+           System.out.println(e);
+           
+           
+           
+       }       // TODO add your handling code here:
+    }//GEN-LAST:event_SearchBtnMouseClicked
+
+    private void SearchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchBtnActionPerformed
+
+    }//GEN-LAST:event_SearchBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton SearchBtn;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel jPanel16;
-    private javax.swing.JPanel jPanel17;
-    private javax.swing.JPanel jPanel18;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel25;
     private javax.swing.JPanel jPanel26;
     private javax.swing.JPanel jPanel27;
@@ -271,8 +448,11 @@ public class Dashboards extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel pendingOrders;
+    private javax.swing.JTextField searchTableNum;
     private javax.swing.JLabel totalMenu;
     private javax.swing.JLabel totalSales;
+    private javax.swing.JTable transactionList;
     // End of variables declaration//GEN-END:variables
 }
