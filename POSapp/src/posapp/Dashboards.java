@@ -5,13 +5,17 @@
  */
 package posapp;
 
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import static java.lang.Integer.parseInt;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
@@ -34,17 +38,18 @@ public class Dashboards extends javax.swing.JInternalFrame {
     }
 
     public void dispReports() {
-
+       LocalDate myObj = LocalDate.now(); 
+        
         try {
             Class.forName("com.mysql.jdbc.Driver"); //load the driver
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/posjava", "root", ""); //establishes the connection
-            PreparedStatement stmt = con.prepareStatement("SELECT sum(amount) as totalsale FROM sales"); //get the connection stream(connection port)
+            PreparedStatement stmt = con.prepareStatement("SELECT sum(amount)as totalsale,soldDate FROM sales"); //get the connection stream(connection port)
 
             ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
+            if (rs.next()&& myObj.toString().equals(rs.getString("soldDate"))) {
                 totalSales.setText(rs.getString("totalsale"));
             } else {
-                JOptionPane.showMessageDialog(null, "NO sales Yet");
+                totalSales.setText("No sales");
             }
 
             PreparedStatement stmt2 = con.prepareStatement("SELECT count(*) as menuCount FROM menu");
@@ -172,7 +177,7 @@ public class Dashboards extends javax.swing.JInternalFrame {
         totalSales.setForeground(new java.awt.Color(240, 240, 240));
         totalSales.setText("10,500");
         jPanel3.add(totalSales);
-        totalSales.setBounds(20, 20, 110, 30);
+        totalSales.setBounds(20, 20, 140, 30);
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(240, 240, 240));
@@ -291,6 +296,11 @@ public class Dashboards extends javax.swing.JInternalFrame {
         jScrollPane1.setBounds(30, 260, 660, 160);
 
         searchTableNum.setText("Search orders...");
+        searchTableNum.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                searchTableNumMouseClicked(evt);
+            }
+        });
         searchTableNum.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchTableNumActionPerformed(evt);
@@ -369,7 +379,7 @@ public class Dashboards extends javax.swing.JInternalFrame {
         jPanel5.add(jLabel4);
         jLabel4.setBounds(40, 190, 200, 22);
 
-        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, 720, 540));
+        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 720, 540));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -426,6 +436,10 @@ public class Dashboards extends javax.swing.JInternalFrame {
     private void SearchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchBtnActionPerformed
 
     }//GEN-LAST:event_SearchBtnActionPerformed
+
+    private void searchTableNumMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchTableNumMouseClicked
+       searchTableNum.setText("");
+    }//GEN-LAST:event_searchTableNumMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

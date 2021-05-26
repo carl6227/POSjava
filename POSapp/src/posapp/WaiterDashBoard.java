@@ -245,6 +245,11 @@ public class WaiterDashBoard extends javax.swing.JFrame {
         jPanel1.add(SearchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 10, 90, 40));
 
         searchTableNum.setText("Search orders by table number...");
+        searchTableNum.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                searchTableNumMouseClicked(evt);
+            }
+        });
         searchTableNum.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchTableNumActionPerformed(evt);
@@ -570,7 +575,7 @@ public class WaiterDashBoard extends javax.swing.JFrame {
     }//GEN-LAST:event_searchTableNumActionPerformed
 
     private void searchTableNumKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTableNumKeyPressed
-
+    
     }//GEN-LAST:event_searchTableNumKeyPressed
 
     private void searchTableNumKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTableNumKeyReleased
@@ -610,6 +615,7 @@ public class WaiterDashBoard extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Order Added");
                 tablenum.setSelectedItem("");
                 qty.setText("");
+                id.setText("");
                 menuname.setSelectedItem("");
                 
             } else {
@@ -631,29 +637,37 @@ public class WaiterDashBoard extends javax.swing.JFrame {
     }//GEN-LAST:event_AddOrderMouseClicked
 
     private void CancelOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CancelOrderMouseClicked
-        int ID = parseInt(id.getText());
-        if (ID != 0) {
-
-            try {
-                Class.forName("com.mysql.jdbc.Driver");
-                Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/posjava", "root", ""); //establishes the connection
-                PreparedStatement stmt = con.prepareStatement("DELETE FROM orders where id=?");
-                stmt.setInt(1, ID);
-
-                //
-                stmt.executeUpdate();
-                dispOrders();
-                JOptionPane.showMessageDialog(this, "Order deleted Successfully");
-
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (SQLException ex) {
-                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, "You must select an Order");
-
-        }
+        
+       if(!"".equals(id.getText())){
+        
+       
+           int response = JOptionPane.showConfirmDialog(this, "Are you sure you want to cancel this Order?", "confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+           if (response == JOptionPane.YES_OPTION && !"Delivered".equals(Status.getText())) {
+               int ID = parseInt(id.getText());
+               try {
+                   Class.forName("com.mysql.jdbc.Driver");
+                   Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/posjava", "root", ""); //establishes the connection
+                   PreparedStatement stmt = con.prepareStatement("DELETE FROM orders where id=?");
+                   stmt.setInt(1, ID);
+                   
+                   //
+                   stmt.executeUpdate();
+                   dispOrders();
+                   JOptionPane.showMessageDialog(this, "Order deleted Successfully");
+                   
+               } catch (ClassNotFoundException ex) {
+                   Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+               } catch (SQLException ex) {
+                   Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+               }
+           } else {
+               JOptionPane.showMessageDialog(this, "Invalid Operation");
+               
+           }
+       }else{
+          JOptionPane.showMessageDialog(this, "Please Select an Order");    
+       }
+       
     }//GEN-LAST:event_CancelOrderMouseClicked
 
     private void payOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_payOrderMouseClicked
@@ -673,6 +687,7 @@ public class WaiterDashBoard extends javax.swing.JFrame {
                 //
 
                 stmt.executeUpdate();
+                
                 dispOrders();
 
                 PreparedStatement stmt2 = con.prepareStatement("DELETE FROM orders WHERE tableno=? and status=?");
@@ -681,6 +696,9 @@ public class WaiterDashBoard extends javax.swing.JFrame {
                 stmt2.executeUpdate();
                 dispOrders();
                 JOptionPane.showMessageDialog(this, "Sales Added");
+                searchTableNum.setText("");
+                TableCount.setText("");
+                total.setText("");
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
             } catch (SQLException ex) {
@@ -692,10 +710,10 @@ public class WaiterDashBoard extends javax.swing.JFrame {
     }//GEN-LAST:event_payOrderMouseClicked
 
     private void deliverOrderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_deliverOrderMouseClicked
-        int ID = parseInt(id.getText());
-        System.out.println(Status.getText());
-        if (ID != 0) {
-
+      
+      
+        if (!"".equals(id.getText())) {
+            int ID = parseInt(id.getText());
             if ("Pending".equals(Status.getText())) {
                 JOptionPane.showMessageDialog(this, "Order still Pending!");
             } else {
@@ -709,7 +727,11 @@ public class WaiterDashBoard extends javax.swing.JFrame {
 
                     stmt.executeUpdate();
                     dispOrders();
-
+                       tablenum.setSelectedItem("");
+                qty.setText("");
+                id.setText("");
+                menuname.setSelectedItem("");
+                 id.setText("");
                 } catch (ClassNotFoundException ex) {
                     Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (SQLException ex) {
@@ -720,7 +742,7 @@ public class WaiterDashBoard extends javax.swing.JFrame {
 
             }
         } else {
-            JOptionPane.showMessageDialog(this, "You must select an Order");
+            JOptionPane.showMessageDialog(this, "Please select an Order");
         }
     }//GEN-LAST:event_deliverOrderMouseClicked
 
@@ -745,6 +767,10 @@ public class WaiterDashBoard extends javax.swing.JFrame {
         dispMenu();
         addToDropDown();
     }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void searchTableNumMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_searchTableNumMouseClicked
+      searchTableNum.setText("");
+    }//GEN-LAST:event_searchTableNumMouseClicked
 
     /**
      * @param args the command line arguments

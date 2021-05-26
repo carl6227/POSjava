@@ -29,7 +29,7 @@ public final class Menu extends javax.swing.JInternalFrame {
     public Menu() throws ClassNotFoundException, SQLException {
         initComponents();
         id.setVisible(false);
-         dispOrders();
+        dispOrders();
     }
 
     /**
@@ -45,7 +45,7 @@ public final class Menu extends javax.swing.JInternalFrame {
             PreparedStatement stmt = con.prepareStatement("SELECT * FROM menu");
             ResultSet rs = stmt.executeQuery();
             Class.forName("com.mysql.jdbc.Driver");
-         
+
             ResultSetMetaData stData = rs.getMetaData();
 
             int q = stData.getColumnCount();
@@ -218,51 +218,52 @@ public final class Menu extends javax.swing.JInternalFrame {
 
         String Category = category.getText();
         String menuname = menuName.getText();
-        
-        if(Category.matches("[0-9]+")==false && menuname.matches("[0-9]+")==false && price.getText().matches("[0-9]+")){
-        int Price = parseInt(price.getText());
-        
-        
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/posjava", "root", ""); //establishes the connection
-            PreparedStatement stmt = con.prepareStatement("INSERT INTO menu(category,menuname,price) values(?,?,?)");
-            stmt.setString(1, Category);
-            stmt.setString(2, menuname);
-            stmt.setInt(3, Price);
+
+        if (Category.matches("[0-9]+") == false && menuname.matches("[0-9]+") == false && price.getText().matches("[0-9]+")) {
+            int Price = parseInt(price.getText());
+
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/posjava", "root", ""); //establishes the connection
+                PreparedStatement stmt = con.prepareStatement("INSERT INTO menu(category,menuname,price) values(?,?,?)");
+                stmt.setString(1, Category);
+                stmt.setString(2, menuname);
+                stmt.setInt(3, Price);
 //     
 
-            stmt.executeUpdate();
-             dispOrders();
-            JOptionPane.showMessageDialog(this, "Record Added");
-           
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        }else{
-         JOptionPane.showMessageDialog(this, "Please enter a valid input");
-        
+                stmt.executeUpdate();
+                dispOrders();
+                JOptionPane.showMessageDialog(this, "Record Added");
+
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Please enter a valid input");
+
         }
 
     }//GEN-LAST:event_AddmenuMouseClicked
 
     private void menulistMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menulistMouseClicked
 
-        
         DefaultTableModel RecordTable = (DefaultTableModel) menulist.getModel();
         int SelectedRows = menulist.getSelectedRow();
-       
-        
+
         id.setText(RecordTable.getValueAt(SelectedRows, 0).toString());
         category.setText(RecordTable.getValueAt(SelectedRows, 1).toString());
         menuName.setText(RecordTable.getValueAt(SelectedRows, 2).toString());
         price.setText(RecordTable.getValueAt(SelectedRows, 3).toString());
-                                     
+
     }//GEN-LAST:event_menulistMouseClicked
 
     private void EditMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_EditMenuMouseClicked
+        
+        if(!"".equals(id.getText())){
+        
+      
         String Category = category.getText();
         String menuname = menuName.getText();
         int Price = parseInt(price.getText());
@@ -280,11 +281,15 @@ public final class Menu extends javax.swing.JInternalFrame {
             stmt.executeUpdate();
             dispOrders();
             JOptionPane.showMessageDialog(this, "Record Updated");
-           
+
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
         } catch (SQLException ex) {
             Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+          }else{
+         JOptionPane.showMessageDialog(this, "No selected item");
+        
         }
     }//GEN-LAST:event_EditMenuMouseClicked
 
@@ -293,24 +298,29 @@ public final class Menu extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_EditMenuActionPerformed
 
     private void DeleteMenuMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DeleteMenuMouseClicked
-     int ID = parseInt(id.getText());
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/posjava", "root", ""); //establishes the connection
-            PreparedStatement stmt = con.prepareStatement("DELETE FROM menu where id=?");
-            stmt.setInt(1,ID);
+        int response = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this menu?", "confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (response == JOptionPane.YES_OPTION &&!"".equals(id.getText())) {
            
-//     
+            int ID = parseInt(id.getText());
+            try {
+                Class.forName("com.mysql.jdbc.Driver");
+                Connection con = java.sql.DriverManager.getConnection("jdbc:mysql://localhost:3306/posjava", "root", ""); //establishes the connection
+                PreparedStatement stmt = con.prepareStatement("DELETE FROM menu where id=?");
+                stmt.setInt(1, ID);
+                stmt.executeUpdate();
+                dispOrders();
+                JOptionPane.showMessageDialog(this, "Deleted Successfully");
 
-            stmt.executeUpdate();
-             dispOrders();
-            JOptionPane.showMessageDialog(this, "Deleted Successfully");
-           
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }else{
+        JOptionPane.showMessageDialog(this, "No selected item");
         }
+
     }//GEN-LAST:event_DeleteMenuMouseClicked
 
     private void DeleteMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteMenuActionPerformed

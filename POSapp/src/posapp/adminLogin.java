@@ -114,7 +114,7 @@ public class adminLogin extends javax.swing.JFrame {
         });
         jPanel2.add(loginBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, 210, 40));
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 310, 390));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 310, 400));
 
         jPanel3.setBackground(new java.awt.Color(0, 102, 102));
         jPanel3.setLayout(null);
@@ -162,7 +162,7 @@ public class adminLogin extends javax.swing.JFrame {
         jPanel3.add(loginAsWaiter);
         loginAsWaiter.setBounds(90, 320, 140, 40);
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, 320, 390));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 0, 320, 400));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 620, 400));
 
