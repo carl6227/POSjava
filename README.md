@@ -1,4 +1,4 @@
-# POSjava
+#Restaurant POS
 
 1.clone this repository
 2.download mysql connector jdbc version 8.0.20
