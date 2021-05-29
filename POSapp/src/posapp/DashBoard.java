@@ -245,6 +245,7 @@ public void dispMenu() throws ClassNotFoundException, SQLException {
         jPanel3.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, 460));
 
         jPanel1.setBackground(new java.awt.Color(25, 68, 68));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/posapp/rsz_logout.png"))); // NOI18N
         jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -252,6 +253,7 @@ public void dispMenu() throws ClassNotFoundException, SQLException {
                 jLabel1MouseClicked(evt);
             }
         });
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 10, -1, -1));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/posapp/rsz_1refresh.png"))); // NOI18N
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -259,29 +261,9 @@ public void dispMenu() throws ClassNotFoundException, SQLException {
                 jLabel3MouseClicked(evt);
             }
         });
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 10, 50, 30));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(842, Short.MAX_VALUE)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel1)
-                .addGap(32, 32, 32))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(19, Short.MAX_VALUE))
-        );
-
-        jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, 60));
+        jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 950, 60));
 
         reportsPane.setPreferredSize(new java.awt.Dimension(740, 540));
         reportsPane.setLayout(null);
@@ -628,11 +610,15 @@ public void dispMenu() throws ClassNotFoundException, SQLException {
         jLayeredPane1.setLayout(jLayeredPane1Layout);
         jLayeredPane1Layout.setHorizontalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 740, Short.MAX_VALUE)
+            .addGap(0, 730, Short.MAX_VALUE)
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(reportsPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addComponent(reportsPane, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
+                    .addContainerGap()))
             .addGroup(jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(menuPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                    .addComponent(menuPane, javax.swing.GroupLayout.DEFAULT_SIZE, 720, Short.MAX_VALUE)
+                    .addContainerGap()))
         );
         jLayeredPane1Layout.setVerticalGroup(
             jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -647,11 +633,12 @@ public void dispMenu() throws ClassNotFoundException, SQLException {
                     .addGap(0, 21, Short.MAX_VALUE)))
         );
 
-        jPanel3.add(jLayeredPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 60, 740, 460));
+        jPanel3.add(jLayeredPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 60, 730, 460));
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 970, -1));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(-10, 0, 960, -1));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void DashboardBtn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DashboardBtn1MouseClicked
@@ -792,7 +779,7 @@ public void dispMenu() throws ClassNotFoundException, SQLException {
                 //
 
                 stmt.executeUpdate();
-                dispOrders();
+                dispMenu();
                 JOptionPane.showMessageDialog(this, "Record Added");
 
             } catch (ClassNotFoundException ex) {
@@ -825,7 +812,7 @@ public void dispMenu() throws ClassNotFoundException, SQLException {
                 //
 
                 stmt.executeUpdate();
-                dispOrders();
+                dispMenu();
                 JOptionPane.showMessageDialog(this, "Record Updated");
 
             } catch (ClassNotFoundException ex) {
@@ -854,7 +841,7 @@ public void dispMenu() throws ClassNotFoundException, SQLException {
                 PreparedStatement stmt = con.prepareStatement("DELETE FROM menu where id=?");
                 stmt.setInt(1, ID);
                 stmt.executeUpdate();
-                dispOrders();
+                dispMenu(); 
                 JOptionPane.showMessageDialog(this, "Deleted Successfully");
 
             } catch (ClassNotFoundException ex) {
@@ -964,6 +951,10 @@ public void dispMenu() throws ClassNotFoundException, SQLException {
     private javax.swing.JLabel totalSales;
     private javax.swing.JTable transactionList;
     // End of variables declaration//GEN-END:variables
+
+    private void setExtendsState(int ICONIFIED) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
   
 }
